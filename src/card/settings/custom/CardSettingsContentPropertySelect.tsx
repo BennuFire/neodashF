@@ -7,13 +7,18 @@ import { Autocomplete } from '@material-ui/lab';
 import NeoField from '../../../component/field/Field';
 import { getReportTypes } from '../../../extensions/ExtensionUtils';
 
-const NeoCardSettingsContentPropertySelect = ({ type, database, settings, extensions, onReportSettingUpdate, onQueryUpdate }) => {
-    const { driver } = useContext<Neo4jContextState>(Neo4jContext);
-    if (!driver) throw new Error('`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?')
-
-    const debouncedRunCypherQuery = useCallback(
-        debounce(runCypherQuery, RUN_QUERY_DELAY_MS),
-        [],
+const NeoCardSettingsContentPropertySelect = ({
+  type,
+  database,
+  settings,
+  extensions,
+  onReportSettingUpdate,
+  onQueryUpdate,
+}) => {
+  const { driver } = useContext<Neo4jContextState>(Neo4jContext);
+  if (!driver) {
+    throw new Error(
+      '`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?',
     );
   }
 
@@ -24,7 +29,7 @@ const NeoCardSettingsContentPropertySelect = ({ type, database, settings, extens
   const [labelRecords, setLabelRecords] = React.useState([]);
   const [propertyInputText, setPropertyInputText] = React.useState(settings.propertyType);
   const [propertyRecords, setPropertyRecords] = React.useState([]);
-  const { parameterName } = settings;
+  let { parameterName } = settings;
 
   // When certain settings are updated, a re-generated search query is needed.
   useEffect(() => {
@@ -53,7 +58,6 @@ const NeoCardSettingsContentPropertySelect = ({ type, database, settings, extens
       parameters,
       10,
       (status) => {
-        //
         status == QueryStatus.NO_DATA ? setRecords([]) : null;
       },
       (result) => setRecords(result),
@@ -150,16 +154,77 @@ const NeoCardSettingsContentPropertySelect = ({ type, database, settings, extens
     }
   }
 
-    const parameterSelectTypes = ["Node Property", "Relationship Property", "Free Text"]
-    const reportTypes = getReportTypes(extensions);
-    
-    return <div>
-        <p style={{ color: "grey", fontSize: 12, paddingLeft: "5px", border: "1px solid lightgrey", marginTop: "0px" }}>
-            {reportTypes[type].helperText}
-        </p>
-        <TextField select={true} autoFocus id="type" value={settings["type"] ? settings["type"] : "Node Property"}
-            onChange={(e) => {
-                handleParameterTypeUpdate(e.target.value);
+  const parameterSelectTypes = ['Node Property', 'Relationship Property', 'Free Text'];
+  const reportTypes = getReportTypes(extensions);
+
+  return (
+    <div>
+      <p style={{ color: 'grey', fontSize: 12, paddingLeft: '5px', border: '1px solid lightgrey', marginTop: '0px' }}>
+        {reportTypes[type].helperText}
+      </p>
+      <TextField
+        select={true}
+        autoFocus
+        id="type"
+        value={settings.type ? settings.type : 'Node Property'}
+        onChange={(e) => {
+          handleParameterTypeUpdate(e.target.value);
+        }}
+        style={{ width: '25%' }}
+        label="Selection Type"
+        type="text"
+        style={{ width: 335, marginLeft: '5px', marginTop: '0px' }}
+      >
+        {parameterSelectTypes.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+        ))}
+      </TextField>
+
+      {settings.type == 'Free Text' ? (
+        <NeoField
+          label={'Name'}
+          key={'freetext'}
+          value={settings.entityType ? settings.entityType : ''}
+          defaultValue={''}
+          placeholder={'Enter a parameter name here...'}
+          style={{ width: 335, marginLeft: '5px', marginTop: '0px' }}
+          onChange={(value) => {
+            setLabelInputText(value);
+            handleNodeLabelSelectionUpdate(value);
+            handleFreeTextNameSelectionUpdate(value);
+          }}
+        />
+      ) : (
+        <>
+          <Autocomplete
+            id="autocomplete-label-type"
+            options={
+              manualPropertyNameSpecification
+                ? [settings.entityType]
+                : labelRecords.map((r) => (r._fields ? r._fields[0] : '(no data)'))
+            }
+            getOptionLabel={(option) => (option ? option : '')}
+            style={{ width: 335, marginLeft: '5px', marginTop: '5px' }}
+            inputValue={labelInputText}
+            onInputChange={(event, value) => {
+              setLabelInputText(value);
+              if (manualPropertyNameSpecification) {
+                handleNodeLabelSelectionUpdate(value);
+              } else if (settings.type == 'Node Property') {
+                queryCallback(
+                  'CALL db.labels() YIELD label WITH label as nodeLabel WHERE toLower(nodeLabel) CONTAINS toLower($input) RETURN DISTINCT nodeLabel LIMIT 5',
+                  { input: value },
+                  setLabelRecords,
+                );
+              } else {
+                queryCallback(
+                  'CALL db.relationshipTypes() YIELD relationshipType WITH relationshipType as relType WHERE toLower(relType) CONTAINS toLower($input) RETURN DISTINCT relType LIMIT 5',
+                  { input: value },
+                  setLabelRecords,
+                );
+              }
             }}
             value={settings.entityType ? settings.entityType : undefined}
             onChange={(event, newValue) => handleNodeLabelSelectionUpdate(newValue)}

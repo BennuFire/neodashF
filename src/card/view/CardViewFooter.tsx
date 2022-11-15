@@ -1,26 +1,46 @@
-import React from "react";
-import { CardActions, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, Select, TextField } from "@material-ui/core";
-import { categoricalColorSchemes } from "../../config/ColorConfig";
-import { getReportTypes } from "../../extensions/ExtensionUtils";
-import { SELECTION_TYPES } from "../../config/CardConfig";
+import React from 'react';
+import {
+  CardActions,
+  Checkbox,
+  FormControl,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
+} from '@material-ui/core';
+import { categoricalColorSchemes } from '../../config/ColorConfig';
+import { getReportTypes } from '../../extensions/ExtensionUtils';
+import { SELECTION_TYPES } from '../../config/CardConfig';
 
-const NeoCardViewFooter = ({ fields, settings, selection, type, extensions, showOptionalSelections, onSelectionUpdate }) => {
-    /**
-     * For each selectable field in the visualization, give the user an option to select them from the query output fields.
-    */
-     const reportTypes = getReportTypes(extensions);
-    const selectableFields = reportTypes[type].selection;
-    const selectables = (selectableFields) ? Object.keys(selectableFields) : [];
-    const nodeColorScheme = settings && settings.nodeColorScheme ? settings.nodeColorScheme : "neodash";
-    const hideSelections = settings && settings.hideSelections ? settings.hideSelections : false;
-    const ignoreLabelColors = reportTypes[type].ignoreLabelColors;
-    if (!fields || fields.length == 0 || hideSelections) {
-        return <div></div>
-    }
-    return (
-        <CardActions style={{ position: "relative", paddingLeft: "15px", marginTop: "-5px", overflowX: "scroll" }} disableSpacing>
-            {selectables.map((selectable, index) => {
-                const selectionIsMandatory = (selectableFields[selectable]['optional']) ? false : true;
+const NeoCardViewFooter = ({
+  fields,
+  settings,
+  selection,
+  type,
+  extensions,
+  showOptionalSelections,
+  onSelectionUpdate,
+}) => {
+  /**
+   * For each selectable field in the visualization, give the user an option to select them from the query output fields.
+   */
+  const reportTypes = getReportTypes(extensions);
+  const selectableFields = reportTypes[type].selection;
+  const selectables = selectableFields ? Object.keys(selectableFields) : [];
+  const nodeColorScheme = settings && settings.nodeColorScheme ? settings.nodeColorScheme : 'neodash';
+  const hideSelections = settings && settings.hideSelections ? settings.hideSelections : false;
+  const { ignoreLabelColors } = reportTypes[type];
+  if (!fields || fields.length == 0 || hideSelections) {
+    return <div></div>;
+  }
+  return (
+    <CardActions
+      style={{ position: 'relative', paddingLeft: '15px', marginTop: '-5px', overflowX: 'scroll' }}
+      disableSpacing
+    >
+      {selectables.map((selectable, index) => {
+        const selectionIsMandatory = !selectableFields[selectable].optional;
 
         // Creates the component for node property selections.
         if (selectableFields[selectable].type == SELECTION_TYPES.NODE_PROPERTIES) {

@@ -67,41 +67,9 @@ export const NeoShareModal = ({ connection, loadDashboardListFromNeo4j, loadData
     });
   };
 
-                </DialogTitle>
-                <DialogContent style={{ width: "1000px" }}>
-                    <DialogContentText>
-                        This window lets you create a temporary share link for your dashboard.
-                        Keep in mind that share links are not intended as a way to publish your dashboard for users, see the <a href="https://neo4j.com/labs/neodash/2.2/user-guide/publishing/">documentation</a> for more on publishing.
-                        <br />
-                        <hr /><br />
-                        Step 1: Select a dashboard to share.
-                        <br />
-                        <br />
-                        <Button
-                            component="label"
-                            onClick={(e) => {
-                                loadDashboardListFromNeo4j(driver, dashboardDatabase, (result) => { setShareLink(null); setRows(result) });
-                                setLoadFromNeo4jModalOpen(true);
-                            }}
-                            style={{ marginBottom: "10px", backgroundColor: "white" }}
-                            color="default"
-                            variant="contained"
-                            size="medium"
-                            endIcon={<StorageIcon />}>
-                            Share From Neo4j
-                        </Button>
-                        <Button
-                            component="label"
-                            onClick={(e) => {
-                                setLoadFromFileModalOpen(true);
-                            }}
-                            style={{ marginBottom: "10px", marginLeft: "10px", backgroundColor: "white" }}
-                            color="default"
-                            variant="contained"
-                            size="medium"
-                            endIcon={<PostAddIcon />}>
-                            Share a File
-                        </Button>
+  const handleClose = () => {
+    setShareModalOpen(false);
+  };
 
   const columns = [
     { field: 'id', hide: true, headerName: 'ID', width: 150 },
@@ -172,7 +140,7 @@ export const NeoShareModal = ({ connection, loadDashboardListFromNeo4j, loadData
           <DialogContentText>
             This window lets you create a temporary share link for your dashboard. Keep in mind that share links are not
             intended as a way to publish your dashboard for users, see the{' '}
-            <a href="https://neo4j.com/labs/neodash/2.1/user-guide/publishing/">documentation</a> for more on
+            <a href="https://neo4j.com/labs/neodash/2.2/user-guide/publishing/">documentation</a> for more on
             publishing.
             <br />
             <hr />

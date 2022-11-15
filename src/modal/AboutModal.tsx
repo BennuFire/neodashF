@@ -10,19 +10,7 @@ import { Button } from '@material-ui/core';
 import BugReportIcon from '@material-ui/icons/BugReport';
 
 export const NeoAboutModal = ({ open, handleClose, getDebugState }) => {
-    const app = "NeoDash - Neo4j Dashboard Builder";
-    const version = "2.2.0";
-
-    const downloadDebugFile = () => {
-        const element = document.createElement("a");
-        const state = getDebugState();
-        state["version"] = version;
-        const file = new Blob([JSON.stringify(state, null, 2)], { type: 'text/plain' });
-        element.href = URL.createObjectURL(file);
-        element.download = "neodash-debug-state.json";
-        document.body.appendChild(element); // Required for this to work in FireFox
-        element.click();
-    }
+  const version = '2.2.0';
 
   const downloadDebugFile = () => {
     const element = document.createElement('a');

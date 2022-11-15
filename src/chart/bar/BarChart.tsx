@@ -47,18 +47,10 @@ const NeoBarChart = (props: ChartProps) => {
         const key = selection.key !== '(none)' ? recordToNative(row.get(selection.key)) : selection.value;
         const value = recordToNative(row.get(selection.value));
 
-    const labelSkipWidth = (settings["labelSkipWidth"]) ? (settings["labelSkipWidth"]) : 0;
-    const labelSkipHeight = (settings["labelSkipHeight"]) ? (settings["labelSkipHeight"]) : 0;
-    const enableLabel = (settings["barValues"]) ? settings["barValues"] : false;
-    const positionLabel = (settings["positionLabel"]) ? settings["positionLabel"] : 'off';
-
-    const layout = (settings["layout"]) ? settings["layout"] : 'vertical';
-    const colorScheme = (settings["colors"]) ? settings["colors"] : 'set2';
-    const groupMode = (settings["groupMode"]) ? settings["groupMode"] : 'stacked';
-    const valueScale = (settings["valueScale"]) ? settings["valueScale"] : 'linear';
-    const minValue = (settings["minValue"]) ? settings["minValue"] : 'auto';
-    const maxValue = (settings["maxValue"]) ? settings["maxValue"] : 'auto';
-    const styleRules = extensionEnabled(props.extensions, 'styling') && props.settings && props.settings.styleRules ? props.settings.styleRules : [];
+        if (isNaN(value)) {
+          return data;
+        }
+        keys[key] = true;
 
         if (idx > -1) {
           data[idx][key] = value;
@@ -102,7 +94,10 @@ const NeoBarChart = (props: ChartProps) => {
   const valueScale = settings.valueScale ? settings.valueScale : 'linear';
   const minValue = settings.minValue ? settings.minValue : 'auto';
   const maxValue = settings.maxValue ? settings.maxValue : 'auto';
-  const styleRules = props.settings && props.settings.styleRules ? props.settings.styleRules : [];
+  const styleRules =
+    extensionEnabled(props.extensions, 'styling') && props.settings && props.settings.styleRules
+      ? props.settings.styleRules
+      : [];
 
   // Compute bar color based on rules - overrides default color scheme completely.
   const getBarColor = (bar) => {
@@ -124,12 +119,12 @@ const NeoBarChart = (props: ChartProps) => {
   }
 
   const BarComponent = ({ bar, borderColor }) => {
-    const shade = false;
-    const darkTop = false;
-    const includeIndex = false;
+    let shade = false;
+    let darkTop = false;
+    let includeIndex = false;
     let x = bar.width / 2;
     let y = bar.height / 2;
-    const textAnchor = 'middle';
+    let textAnchor = 'middle';
     if (positionLabel == 'top') {
       if (layout == 'vertical') {
         y = -10;

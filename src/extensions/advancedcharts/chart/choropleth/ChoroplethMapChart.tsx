@@ -2,7 +2,7 @@ import React from 'react';
 import { ChartProps } from '../../../../chart/Chart';
 import { ResponsiveChoropleth } from '@nivo/geo';
 import { useState, useEffect } from 'react';
-import { checkResultKeys, recordToNative } from '../../../../chart/ChartUtils';
+import { recordToNative } from '../../../../chart/ChartUtils';
 import { NoDrawableDataErrorMessage } from '../../../../component/editor/CodeViewerComponent';
 
 /**
@@ -27,30 +27,25 @@ const NeoChoroplethMapChart = (props: ChartProps) => {
     return <NoDrawableDataErrorMessage />;
   }
 
-  const keys = {};
-
-  const data = records.reduce((data: Record<string, any>, row: Record<string, any>) => {
+  let data = records.reduce((data: Record<string, any>, row: Record<string, any>) => {
     try {
       const index = recordToNative(row.get(selection.index));
       const value = recordToNative(row.get(selection.value));
 
-        try {
-            const index = recordToNative(row.get(selection['index']));
-            const value = recordToNative(row.get(selection['value']));
+      if (!index || index.length != 3 || isNaN(value)) {
+        return data;
+        // throw "Invalid selection for choropleth chart. Ensure a three letter country code is retrieved together with a value."
+      }
+      data.push({ id: index, value: value });
+      return data;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+      return [];
+    }
+  }, []);
 
-            if(!index || index.length != 3 || isNaN(value)){
-                return data;
-                //throw "Invalid selection for choropleth chart. Ensure a three letter country code is retrieved together with a value."
-            }
-            data.push({ "id": index, "value": value });
-            return data;
-        } catch (e) {
-            console.error(e);
-            return [];
-        }
-    }, []);
-
-  const m = Math.max(...data.map((o) => o.value));
+  let m = Math.max(...data.map((o) => o.value));
 
   const settings = props.settings ? props.settings : {};
   const marginRight = settings.marginRight ? settings.marginRight : 24;

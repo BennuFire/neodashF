@@ -26,33 +26,38 @@ function ApplyColumnType(column, value) {
 }
 
 const NeoTableChart = (props: ChartProps) => {
-    const fullscreen = props.fullscreen ? props.fullscreen : false;
-    const transposed = props.settings && props.settings.transposed ? props.settings.transposed : false;
-    const allowDownload = props.settings && props.settings.allowDownload !== undefined ? props.settings.allowDownload : false;
-    const styleRules = extensionEnabled(props.extensions, 'styling') && props.settings && props.settings.styleRules ? props.settings.styleRules : [];
-    const [notificationOpen, setNotificationOpen] = React.useState(false);
+  const fullscreen = props.fullscreen ? props.fullscreen : false;
+  const transposed = props.settings && props.settings.transposed ? props.settings.transposed : false;
+  const allowDownload =
+    props.settings && props.settings.allowDownload !== undefined ? props.settings.allowDownload : false;
+  const styleRules =
+    extensionEnabled(props.extensions, 'styling') && props.settings && props.settings.styleRules
+      ? props.settings.styleRules
+      : [];
+  const [notificationOpen, setNotificationOpen] = React.useState(false);
 
-    const useStyles = generateClassDefinitionsBasedOnRules(styleRules);
-    const classes = useStyles();
-    if (props.records == null || props.records.length == 0 || props.records[0].keys == null) {
-        return <>No data, re-run the report.</>
-    }
+  const useStyles = generateClassDefinitionsBasedOnRules(styleRules);
+  const classes = useStyles();
+  if (props.records == null || props.records.length == 0 || props.records[0].keys == null) {
+    return <>No data, re-run the report.</>;
+  }
 
-    var columnWidths = null;
-    try {
-        columnWidths = props.settings && props.settings.columnWidths && JSON.parse(props.settings.columnWidths);
-    } catch (e) {
-        // do nothing
-    } finally {
-        // do nothing
-    }
+  let columnWidths = null;
+  try {
+    columnWidths = props.settings && props.settings.columnWidths && JSON.parse(props.settings.columnWidths);
+  } catch (e) {
+    // do nothing
+  } finally {
+    // do nothing
+  }
 
-    const records = props.records;
+  const { records } = props;
 
-    const generateSafeColumnKey = (key) => {
-        return key != "id" ? key : key + " ";
-    }
-    const columns = (transposed) ? ["Field"].concat(records.map((r, j) => "Value" + (j == 0 ? "" : " " + (j + 1).toString()))).map((key, i) => {
+  const generateSafeColumnKey = (key) => {
+    return key != 'id' ? key : `${key} `;
+  };
+  const columns = transposed
+    ? ['Field'].concat(records.map((r, j) => `Value${j == 0 ? '' : ` ${(j + 1).toString()}`}`)).map((key, i) => {
         const value = key;
         return ApplyColumnType(
           {

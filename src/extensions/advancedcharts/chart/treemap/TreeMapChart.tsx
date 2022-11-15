@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
-import { ResponsiveTreeMap  } from '@nivo/treemap'
-import { checkResultKeys, mutateName, processHierarchyFromRecords, findObject, flatten } from '../../../../chart/ChartUtils';
-import { useState } from 'react'
-import { Tooltip } from '@material-ui/core'
+import { ResponsiveTreeMap } from '@nivo/treemap';
+import {
+  checkResultKeys,
+  mutateName,
+  processHierarchyFromRecords,
+  findObject,
+  flatten,
+} from '../../../../chart/ChartUtils';
+import { useState } from 'react';
+import { Tooltip } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { ChartProps } from '../../../../chart/Chart';
 import { NoDrawableDataErrorMessage } from '../../../../component/editor/CodeViewerComponent';

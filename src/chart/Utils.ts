@@ -77,9 +77,10 @@ export const mutateName = (currentNode) => {
 
 export const findObject = (data, name) => data.find((searchedName) => searchedName.name === name);
 
-export const flatten = data =>
-    data.reduce((acc, item) => {
-        if (item.children)
-            return [...acc, item, ...flatten(item.children)]
-        return [...acc, item]
-    }, []);
+export const flatten = (data) =>
+  data.reduce((acc, item) => {
+    if (item.children) {
+      return [...acc, item, ...flatten(item.children)];
+    }
+    return [...acc, item];
+  }, []);

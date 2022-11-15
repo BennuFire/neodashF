@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 import { ResponsiveCirclePacking } from '@nivo/circle-packing';
-import { useState } from 'react'
-import { Tooltip } from '@material-ui/core'
+import { useState } from 'react';
+import { Tooltip } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { ChartProps } from '../../../../chart/Chart';
 import { NoDrawableDataErrorMessage } from '../../../../component/editor/CodeViewerComponent';
-import { checkResultKeys, mutateName, processHierarchyFromRecords, findObject, flatten } from '../../../../chart/ChartUtils';
+import {
+  checkResultKeys,
+  mutateName,
+  processHierarchyFromRecords,
+  findObject,
+  flatten,
+} from '../../../../chart/ChartUtils';
 
 const NeoCirclePackingChart = (props: ChartProps) => {
   if (props.records == null || props.records.length == 0 || props.records[0].keys == null) {

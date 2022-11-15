@@ -7,7 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import PlayArrow from '@material-ui/icons/PlayArrow';
 import SaveIcon from '@material-ui/icons/Save';
 import {
   Checkbox,
@@ -24,8 +23,7 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { getDashboardJson } from './ModalSelectors';
 import { valueIsArray, valueIsObject } from '../chart/ChartUtils';

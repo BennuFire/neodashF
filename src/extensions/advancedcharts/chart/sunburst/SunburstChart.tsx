@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { checkResultKeys, mutateName as mutateHierarchyNameIntoDisplayName, processHierarchyFromRecords, findObject, flatten } from '../../../../chart/ChartUtils';
-import { ResponsiveSunburst } from '@nivo/sunburst'
+import {
+  checkResultKeys,
+  mutateName as mutateHierarchyNameIntoDisplayName,
+  processHierarchyFromRecords,
+  findObject,
+  flatten,
+} from '../../../../chart/ChartUtils';
+import { ResponsiveSunburst } from '@nivo/sunburst';
 import { Tooltip } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { ChartProps } from '../../../../chart/Chart';
