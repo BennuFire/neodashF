@@ -32,16 +32,16 @@ const NeoExtensionsModal = ({
 
   return (
     <div>
-      <ListItem button onClick={handleClickOpen} id="extensions-sidebar-button">
+      <ListItem button onClick={handleClickOpen} id='extensions-sidebar-button'>
         <ListItemIcon>
           <ExtensionIcon />
         </ListItemIcon>
-        <ListItemText primary="Extensions" />
+        <ListItemText primary='Extensions' />
       </ListItem>
 
       {open ? (
-        <Dialog maxWidth={'md'} open={open == true} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">
+        <Dialog maxWidth={'md'} open={open == true} onClose={handleClose} aria-labelledby='form-dialog-title'>
+          <DialogTitle id='form-dialog-title'>
             <ExtensionIcon
               style={{
                 height: '30px',
@@ -60,9 +60,9 @@ const NeoExtensionsModal = ({
           </DialogTitle>
           <div>
             <DialogContent>
-              <a target="_blank" href="https://neo4j.com/labs/neodash/2.2/user-guide/extensions/">
+              <a target='_blank' href='https://neo4j.com/labs/neodash/2.2/user-guide/extensions/'>
                 Extensions
-              </a>{' '}
+              </a>
               are a way of extending the core functionality of NeoDash with custom logic.
               <br />
               This can be a new visualization, extra styling options for an existing visualization, or even a completely
@@ -81,13 +81,13 @@ const NeoExtensionsModal = ({
                             {e.enabled ? (
                               ''
                             ) : (
-                              <Chip label="Pro Feature" color="primary" size="small" variant="outlined" />
+                              <Chip label='Pro Feature' color='primary' size='small' variant='outlined' />
                             )}
                           </h3>
                         </td>
                         <td style={{ width: 50 }}></td>
                         <td style={{ float: 'right' }}>
-                          <Tooltip title="Enable the extension" aria-label="">
+                          <Tooltip title='Enable the extension' aria-label=''>
                             <FormControlLabel
                               onClick={() => {
                                 if (e.enabled) {
@@ -102,16 +102,16 @@ const NeoExtensionsModal = ({
                                   disabled={!e.enabled}
                                   style={{ fontSize: 'small' }}
                                   checked={extensions[e.name]}
-                                  name="enable"
+                                  name='enable'
                                 />
                               }
-                              label={<span color="green">{extensions[e.name] ? 'Active  ' : 'Disabled'}</span>}
+                              label={<span color='green'>{extensions[e.name] ? 'Active  ' : 'Disabled'}</span>}
                             />
                           </Tooltip>
                         </td>
                       </tr>
                       <tr>
-                        <td valign="top">
+                        <td valign='top'>
                           <p>{e.description}</p>
                           <p>
                             Author: <a href={e.link}>{e.author}</a>
@@ -150,8 +150,8 @@ const mapDispatchToProps = (dispatch) => ({
         `Extension '${name}' Unavailable`,
         // eslint-disable-next-line no-multi-str
         'This extension is not available in the open-source version of NeoDash.\n  \
-     To learn more about professional extensions, check out the project documentation.',
-      ),
+     To learn more about professional extensions, check out the project documentation.'
+      )
     ),
 });
 

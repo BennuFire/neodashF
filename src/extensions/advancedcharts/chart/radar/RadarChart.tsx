@@ -61,8 +61,6 @@ const NeoRadarChart = (props: ChartProps) => {
     selection.values.concat([selection.index]).forEach((k) => {
       const fieldIndex = r._fieldLookup[k];
       if (k !== selection.index && isNaN(r._fields[fieldIndex])) {
-        // eslint-disable-next-line no-console
-        console.log(k, r._fields[fieldIndex]);
         valid = false;
       }
       entry[k] = `${r._fields[fieldIndex]}`;
@@ -88,7 +86,7 @@ const NeoRadarChart = (props: ChartProps) => {
       gridLevels={gridLevels}
       keys={keys}
       indexBy={selection.index}
-      valueFormat=">-.2f"
+      valueFormat='>-.2f'
       borderColor={{ from: 'color' }}
       gridLabelOffset={gridLabelOffset}
       dotSize={dotSize}

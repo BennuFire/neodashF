@@ -28,12 +28,12 @@ export const NeoReportExamplesModal = ({ database, examples, extensions }) => {
         <ListItemIcon>
           <AssessmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Examples" />
+        <ListItemText primary='Examples' />
       </ListItem>
 
       {open ? (
-        <Dialog maxWidth={'xl'} open={open == true} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">
+        <Dialog maxWidth={'xl'} open={open == true} onClose={handleClose} aria-labelledby='form-dialog-title'>
+          <DialogTitle id='form-dialog-title'>
             <AssessmentIcon
               style={{
                 height: '30px',
@@ -66,7 +66,7 @@ export const NeoReportExamplesModal = ({ database, examples, extensions }) => {
                           <div style={{ width: '400px', border: '0px solid lightgrey' }}>
                             <NeoCodeEditorComponent
                               editable={false}
-                              placeholder=""
+                              placeholder=''
                               value={example.exampleQuery}
                               language={example.type == 'iframe' ? 'url' : 'cypher'}
                             ></NeoCodeEditorComponent>

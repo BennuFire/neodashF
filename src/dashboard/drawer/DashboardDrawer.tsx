@@ -24,6 +24,7 @@ import { getExampleReports } from '../../extensions/ExtensionUtils';
 // The sidebar that appears on the left side of the dashboard.
 export const NeoDrawer = ({
   open,
+  hidden,
   connection,
   dashboardSettings,
   extensions,
@@ -32,9 +33,14 @@ export const NeoDrawer = ({
   onAboutModalOpen,
   resetApplication,
 }) => {
+  // Override to hide the drawer when the application is in standalone mode.
+  if (hidden) {
+    return <></>;
+  }
+
   const content = (
     <Drawer
-      variant="permanent"
+      variant='permanent'
       style={
         open
           ? {
@@ -67,12 +73,12 @@ export const NeoDrawer = ({
       >
         <ListItem>
           <Button
-            component="label"
+            component='label'
             onClick={resetApplication}
             style={{ backgroundColor: 'white', marginLeft: '-8px' }}
-            color="default"
-            variant="outlined"
-            size="small"
+            color='default'
+            variant='outlined'
+            size='small'
             startIcon={<ExitToAppIcon />}
           >
             Menu
@@ -87,7 +93,7 @@ export const NeoDrawer = ({
       <div>
         <ListItem style={{ background: 'white', height: '47px' }}>
           <ListItemIcon></ListItemIcon>
-          <ListItemText primary="" />
+          <ListItemText primary='' />
         </ListItem>
       </div>
       <Divider />
@@ -117,13 +123,13 @@ export const NeoDrawer = ({
           <ListItemIcon>
             <LibraryBooksIcon />
           </ListItemIcon>
-          <ListItemText primary="Documentation" />
+          <ListItemText primary='Documentation' />
         </ListItem>
         <ListItem button onClick={onAboutModalOpen}>
           <ListItemIcon>
             <InfoOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="About" />
+          <ListItemText primary='About' />
         </ListItem>
       </List>
       <Divider />
@@ -134,17 +140,18 @@ export const NeoDrawer = ({
 
 const mapStateToProps = (state) => ({
   dashboardSettings: getDashboardSettings(state),
+  hidden: applicationIsStandalone(state),
   extensions: getDashboardExtensions(state),
   aboutModalOpen: applicationHasAboutModalOpen(state),
   connection: applicationGetConnection(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAboutModalOpen: () => dispatch(setAboutModalOpen(true)),
+  onAboutModalOpen: (_) => dispatch(setAboutModalOpen(true)),
   updateDashboardSetting: (setting, value) => {
     dispatch(updateDashboardSetting(setting, value));
   },
-  resetApplication: () => {
+  resetApplication: (_) => {
     dispatch(setWelcomeScreenOpen(true));
     dispatch(setConnected(false));
   },

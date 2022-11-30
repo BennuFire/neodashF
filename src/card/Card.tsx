@@ -5,7 +5,6 @@ import NeoCardSettings from './settings/CardSettings';
 import NeoCardView from './view/CardView';
 import { connect } from 'react-redux';
 import {
-  updateCypherParametersThunk,
   updateFieldsThunk,
   updateSelectionThunk,
   updateReportQueryThunk,
@@ -26,7 +25,6 @@ import {
   getSessionParameters,
 } from '../settings/SettingsSelectors';
 import { updateGlobalParameterThunk } from '../settings/SettingsThunks';
-import { createNotificationThunk } from '../page/PageThunks';
 import useDimensions from 'react-cool-dimensions';
 import { setReportHelpModalOpen } from '../application/ApplicationActions';
 import { loadDatabaseListFromNeo4jThunk } from '../dashboard/DashboardThunks';
@@ -54,7 +52,6 @@ const NeoCard = ({
   onGlobalParameterUpdate, // action to take when a report updates a dashboard parameter.
   onToggleCardSettings, // action to take when the card settings button is clicked.
   onToggleReportSettings, // action to take when the report settings (advanced settings) button is clicked.
-  onCreateNotification, // action to take when an (error) notification is created.
   onDatabaseChanged, // action to take when the user changes the database related to the card
   loadDatabaseListFromNeo4j, // Thunk to get the list of databases
 }) => {
@@ -101,7 +98,7 @@ const NeoCard = ({
   };
 
   const [active, setActive] = React.useState(
-    report.settings && report.settings.autorun !== undefined ? report.settings.autorun : true,
+    report.settings && report.settings.autorun !== undefined ? report.settings.autorun : true
   );
 
   useEffect(() => {
@@ -185,7 +182,6 @@ const NeoCard = ({
             onReportHelpButtonPressed={() => onReportHelpButtonPressed()}
             onRemovePressed={() => onRemovePressed(index)}
             onClonePressed={() => onClonePressed(index)}
-            onCreateNotification={(title, message) => onCreateNotification(title, message)}
             onToggleCardSettings={() => {
               setSettingsOpen(false);
               setCollapseTimeout('auto');
@@ -203,7 +199,7 @@ const NeoCard = ({
   // Look into React Portals: https://stackoverflow.com/questions/61432878/how-to-render-child-component-outside-of-its-parent-component-dom-hierarchy
   if (expanded) {
     return (
-      <Dialog maxWidth={'xl'} open={expanded} aria-labelledby="form-dialog-title">
+      <Dialog maxWidth={'xl'} open={expanded} aria-labelledby='form-dialog-title'>
         <DialogContent
           style={{
             width: Math.min(1920, document.documentElement.clientWidth - 64),
@@ -225,7 +221,7 @@ const mapStateToProps = (state, ownProps) => ({
   database: getDatabase(
     state,
     ownProps && ownProps.dashboardSettings ? ownProps.dashboardSettings.pagenumber : undefined,
-    ownProps.index,
+    ownProps.index
   ),
   globalParameters: { ...getGlobalParameters(state), ...getSessionParameters(state) },
 });
@@ -263,9 +259,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onToggleReportSettings: (index: any) => {
     dispatch(toggleReportSettings(index));
-  },
-  onCreateNotification: (title: any, message: any) => {
-    dispatch(createNotificationThunk(title, message));
   },
   onDatabaseChanged: (index: any, database: any) => {
     dispatch(updateReportDatabaseThunk(index, database));

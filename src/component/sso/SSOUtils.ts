@@ -68,7 +68,7 @@ export const getDiscoveryDataInfo = async (discoveryAPIurl) => {
 
   const newProvidersFromLocalDiscovery = localDiscoveryData.SSOProviders.filter(
     (providerFromLocalDisc) =>
-      !discoveryURLData.SSOProviders.find((provider) => providerFromLocalDisc.id === provider.id),
+      !discoveryURLData.SSOProviders.find((provider) => providerFromLocalDisc.id === provider.id)
   );
 
   const mergedSSOProviders = discoveryURLData.SSOProviders.concat(newProvidersFromLocalDiscovery);

@@ -27,8 +27,7 @@ const NeoBarChart = (props: ChartProps) => {
     return <></>;
   }
 
-  const { records } = props;
-  const { selection } = props;
+  const { records, selection } = props;
 
   if (!selection || props.records == null || props.records.length == 0 || props.records[0].keys == null) {
     return <NoDrawableDataErrorMessage />;
@@ -88,6 +87,7 @@ const NeoBarChart = (props: ChartProps) => {
   const enableLabel = settings.barValues ? settings.barValues : false;
   const positionLabel = settings.positionLabel ? settings.positionLabel : 'off';
 
+  // TODO: we should make all these defaults be loaded from the config file.
   const layout = settings.layout ? settings.layout : 'vertical';
   const colorScheme = settings.colors ? settings.colors : 'set2';
   const groupMode = settings.groupMode ? settings.groupMode : 'stacked';
@@ -141,7 +141,7 @@ const NeoBarChart = (props: ChartProps) => {
 
     return (
       <g transform={`translate(${bar.x},${bar.y})`}>
-        {shade ? <rect x={-3} y={7} width={bar.width} height={bar.height} fill="rgba(0, 0, 0, .07)" /> : <></>}
+        {shade ? <rect x={-3} y={7} width={bar.width} height={bar.height} fill='rgba(0, 0, 0, .07)' /> : <></>}
         <rect width={bar.width} height={bar.height} fill={bar.color} />
         {darkTop ? (
           <rect x={bar.width - 5} width={5} height={bar.height} fill={borderColor} fillOpacity={0.2} />
@@ -152,9 +152,9 @@ const NeoBarChart = (props: ChartProps) => {
           <text
             x={bar.width - 16}
             y={bar.height / 2}
-            textAnchor="end"
-            dominantBaseline="central"
-            fill="black"
+            textAnchor='end'
+            dominantBaseline='central'
+            fill='black'
             style={{
               fontWeight: 900,
               fontSize: 15,
@@ -170,7 +170,7 @@ const NeoBarChart = (props: ChartProps) => {
             x={x}
             y={y}
             textAnchor={textAnchor}
-            dominantBaseline="central"
+            dominantBaseline='central'
             fill={borderColor}
             style={{
               fontWeight: 400,
@@ -195,7 +195,7 @@ const NeoBarChart = (props: ChartProps) => {
       enableLabel={enableLabel}
       data={data}
       keys={Object.keys(keys)}
-      indexBy="index"
+      indexBy='index'
       margin={{
         top: marginTop,
         right: legend ? legendWidth + marginRight : marginRight,

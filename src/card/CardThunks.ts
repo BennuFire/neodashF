@@ -52,6 +52,7 @@ export const updateReportQueryThunk = (index, query) => (dispatch: any, getState
   }
 };
 
+// TODO: make refresh rate an advanced setting
 export const updateReportRefreshRateThunk = (index, rate) => (dispatch: any, getState: any) => {
   try {
     const state = getState();

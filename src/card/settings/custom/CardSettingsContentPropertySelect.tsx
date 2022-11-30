@@ -1,3 +1,5 @@
+// TODO: this file (in a way) belongs to chart/parameter/ParameterSelectionChart. It would make sense to move it there
+
 import React, { useCallback, useContext, useEffect } from 'react';
 import { RUN_QUERY_DELAY_MS } from '../../../config/ReportConfig';
 import { QueryStatus, runCypherQuery } from '../../../report/ReportQueryRunner';
@@ -18,7 +20,7 @@ const NeoCardSettingsContentPropertySelect = ({
   const { driver } = useContext<Neo4jContextState>(Neo4jContext);
   if (!driver) {
     throw new Error(
-      '`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?',
+      '`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?'
     );
   }
 
@@ -46,7 +48,7 @@ const NeoCardSettingsContentPropertySelect = ({
       `neodash_${`${settings.entityType}_${settings.propertyType}${id == '' || id.startsWith('_') ? id : `_${id}`}`
         .toLowerCase()
         .replaceAll(' ', '_')
-        .replaceAll('-', '_')}`,
+        .replaceAll('-', '_')}`
     );
   }
   // Define query callback to allow reports to get extra data on interactions.
@@ -61,7 +63,7 @@ const NeoCardSettingsContentPropertySelect = ({
         status == QueryStatus.NO_DATA ? setRecords([]) : null;
       },
       (result) => setRecords(result),
-      () => {},
+      () => {}
     );
   }, []);
 
@@ -154,6 +156,7 @@ const NeoCardSettingsContentPropertySelect = ({
     }
   }
 
+  // TODO: since this component is only rendered for parameter select, this is technically not needed
   const parameterSelectTypes = ['Node Property', 'Relationship Property', 'Free Text'];
   const reportTypes = getReportTypes(extensions);
 
@@ -165,14 +168,14 @@ const NeoCardSettingsContentPropertySelect = ({
       <TextField
         select={true}
         autoFocus
-        id="type"
+        id='type'
         value={settings.type ? settings.type : 'Node Property'}
         onChange={(e) => {
           handleParameterTypeUpdate(e.target.value);
         }}
         style={{ width: '25%' }}
-        label="Selection Type"
-        type="text"
+        label='Selection Type'
+        type='text'
         style={{ width: 335, marginLeft: '5px', marginTop: '0px' }}
       >
         {parameterSelectTypes.map((option) => (
@@ -199,7 +202,7 @@ const NeoCardSettingsContentPropertySelect = ({
       ) : (
         <>
           <Autocomplete
-            id="autocomplete-label-type"
+            id='autocomplete-label-type'
             options={
               manualPropertyNameSpecification
                 ? [settings.entityType]
@@ -216,13 +219,13 @@ const NeoCardSettingsContentPropertySelect = ({
                 queryCallback(
                   'CALL db.labels() YIELD label WITH label as nodeLabel WHERE toLower(nodeLabel) CONTAINS toLower($input) RETURN DISTINCT nodeLabel LIMIT 5',
                   { input: value },
-                  setLabelRecords,
+                  setLabelRecords
                 );
               } else {
                 queryCallback(
                   'CALL db.relationshipTypes() YIELD relationshipType WITH relationshipType as relType WHERE toLower(relType) CONTAINS toLower($input) RETURN DISTINCT relType LIMIT 5',
                   { input: value },
-                  setLabelRecords,
+                  setLabelRecords
                 );
               }
             }}
@@ -231,7 +234,7 @@ const NeoCardSettingsContentPropertySelect = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                placeholder="Start typing..."
+                placeholder='Start typing...'
                 InputLabelProps={{ shrink: true }}
                 label={settings.type == 'Node Property' ? 'Node Label' : 'Relationship Type'}
               />
@@ -241,7 +244,7 @@ const NeoCardSettingsContentPropertySelect = ({
           {settings.entityType ? (
             <>
               <Autocomplete
-                id="autocomplete-property"
+                id='autocomplete-property'
                 options={
                   manualPropertyNameSpecification
                     ? [settings.propertyType]
@@ -258,7 +261,7 @@ const NeoCardSettingsContentPropertySelect = ({
                     queryCallback(
                       'CALL db.propertyKeys() YIELD propertyKey as propertyName WITH propertyName WHERE toLower(propertyName) CONTAINS toLower($input) RETURN DISTINCT propertyName LIMIT 5',
                       { input: value },
-                      setPropertyRecords,
+                      setPropertyRecords
                     );
                   }
                 }}
@@ -267,15 +270,15 @@ const NeoCardSettingsContentPropertySelect = ({
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    placeholder="Start typing..."
+                    placeholder='Start typing...'
                     InputLabelProps={{ shrink: true }}
                     label={'Property Name'}
                   />
                 )}
               />
               <NeoField
-                placeholder="number"
-                label="Number (optional)"
+                placeholder='number'
+                label='Number (optional)'
                 disabled={!settings.propertyType}
                 value={settings.id}
                 style={{ width: '135px', marginTop: '5px', marginLeft: '10px' }}

@@ -195,9 +195,9 @@ export const NeoCustomReportStyleModal = ({
             },
           }}
           style={{ overflow: 'inherit', overflowY: 'inherit' }}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby='form-dialog-title'
         >
-          <DialogTitle id="form-dialog-title">
+          <DialogTitle id='form-dialog-title'>
             <TuneIcon
               style={{
                 height: '30px',
@@ -264,10 +264,10 @@ export const NeoCustomReportStyleModal = ({
                             >
                               <Autocomplete
                                 disableClearable={true}
-                                id="autocomplete-label-type"
-                                noOptionsText="*Specify an exact field name"
+                                id='autocomplete-label-type'
+                                noOptionsText='*Specify an exact field name'
                                 options={createFieldVariableSuggestions().filter((e) =>
-                                  e.toLowerCase().includes(rule.field.toLowerCase()),
+                                  e.toLowerCase().includes(rule.field.toLowerCase())
                                 )}
                                 value={rule.field ? rule.field : ''}
                                 inputValue={rule.field ? rule.field : ''}
@@ -282,7 +282,7 @@ export const NeoCustomReportStyleModal = ({
                                 renderInput={(params) => (
                                   <TextField
                                     {...params}
-                                    placeholder="Field name..."
+                                    placeholder='Field name...'
                                     InputLabelProps={{ shrink: true }}
                                   />
                                 )}
@@ -303,7 +303,7 @@ export const NeoCustomReportStyleModal = ({
                             </td>
                             <td style={{ paddingLeft: '5px', paddingRight: '5px' }}>
                               <TextField
-                                placeholder="Value..."
+                                placeholder='Value...'
                                 value={rule.value}
                                 onChange={(e) => updateRuleField(index, 'value', e.target.value)}
                               ></TextField>
@@ -350,8 +350,8 @@ export const NeoCustomReportStyleModal = ({
                             </td>
                             <td style={{ paddingLeft: '5px', paddingRight: '5px' }}>
                               <NeoColorPicker
-                                label=""
-                                defaultValue="black"
+                                label=''
+                                defaultValue='black'
                                 key={undefined}
                                 style={undefined}
                                 value={rule.customizationValue}
@@ -361,8 +361,8 @@ export const NeoCustomReportStyleModal = ({
                           </div>
                           <td>
                             <Fab
-                              size="small"
-                              aria-label="add"
+                              size='small'
+                              aria-label='add'
                               style={{ background: 'black', color: 'white', marginTop: '-6px', marginLeft: '20px' }}
                               onClick={() => {
                                 setRules([...rules.slice(0, index), ...rules.slice(index + 1)]);
@@ -378,10 +378,10 @@ export const NeoCustomReportStyleModal = ({
 
                   <tr>
                     <td style={{ minWidth: '850px' }} colSpan={5}>
-                      <Typography variant="h3" color="primary" style={{ textAlign: 'center', marginBottom: '5px' }}>
+                      <Typography variant='h3' color='primary' style={{ textAlign: 'center', marginBottom: '5px' }}>
                         <Fab
-                          size="small"
-                          aria-label="add"
+                          size='small'
+                          aria-label='add'
                           style={{ background: 'white', color: 'black' }}
                           onClick={() => {
                             const newRule = getDefaultRule(RULE_BASED_REPORT_CUSTOMIZATIONS[type][0].value);
@@ -400,9 +400,9 @@ export const NeoCustomReportStyleModal = ({
 
               <Button
                 style={{ float: 'right', marginTop: '20px', marginBottom: '20px', backgroundColor: 'white' }}
-                color="default"
-                variant="contained"
-                size="large"
+                color='default'
+                variant='contained'
+                size='large'
                 onClick={() => {
                   handleClose();
                 }}

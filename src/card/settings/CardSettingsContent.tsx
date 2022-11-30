@@ -67,8 +67,8 @@ const NeoCardSettingsContent = ({
       {reportTypes[type] && reportTypes[type].disableRefreshRate == undefined ? (
         <NeoField
           select
-          placeholder="neo4j"
-          label="Database"
+          placeholder='neo4j'
+          label='Database'
           value={databaseText}
           style={{ width: '47%', maxWidth: '200px', marginRight: '10px' }}
           choices={databaseList.map((database) => (
@@ -87,8 +87,8 @@ const NeoCardSettingsContent = ({
 
       {reportTypes[type] && reportTypes[type].disableRefreshRate == undefined ? (
         <NeoField
-          placeholder="0 (No Refresh)"
-          label="Refresh Rate (sec)"
+          placeholder='0 (No Refresh)'
+          label='Refresh Rate (sec)'
           numeric={true}
           value={refreshRateText}
           style={{ width: '47%', maxWidth: '200px' }}

@@ -31,8 +31,8 @@ export function checkResultKeys(first: Neo4jRecord, keys: string[]) {
   if (missing.length > 0) {
     return new Error(
       `The query is missing the following key${missing.length > 1 ? 's' : ''}: ${missing.join(
-        ', ',
-      )}.  The expected keys are: ${keys.join(', ')}`,
+        ', '
+      )}.  The expected keys are: ${keys.join(', ')}`
     );
   }
 

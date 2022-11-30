@@ -34,7 +34,6 @@ const NeoCardSettings = ({
   dashboardSettings,
   expanded,
   onToggleCardExpand,
-  onCreateNotification,
 }) => {
   const reportHeight = heightPx - CARD_HEADER_HEIGHT + 24;
 
@@ -83,7 +82,6 @@ const NeoCardSettings = ({
       reportSettings={reportSettings}
       reportSettingsOpen={reportSettingsOpen}
       onToggleReportSettings={onToggleReportSettings}
-      onCreateNotification={onCreateNotification}
       onReportSettingUpdate={onReportSettingUpdate}
     ></NeoCardSettingsFooter>
   ) : (

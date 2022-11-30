@@ -68,7 +68,7 @@ const NeoCirclePackingChart = (props: ChartProps) => {
     <>
       <div style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100%' }}>
         {refreshable ? (
-          <Tooltip title="Reset" aria-label="reset">
+          <Tooltip title='Reset' aria-label='reset'>
             <RefreshIcon
               onClick={() => {
                 setData(commonProperties.data);
@@ -84,8 +84,8 @@ const NeoCirclePackingChart = (props: ChartProps) => {
                 zIndex: 5,
                 background: '#eee',
               }}
-              color="disabled"
-              fontSize="small"
+              color='disabled'
+              fontSize='small'
             ></RefreshIcon>
           </Tooltip>
         ) : (
@@ -93,8 +93,8 @@ const NeoCirclePackingChart = (props: ChartProps) => {
         )}
         <ResponsiveCirclePacking
           {...commonProperties}
-          id="name"
-          value="loc"
+          id='name'
+          value='loc'
           data={data}
           onClick={(clickedData) => {
             const foundObject = findObject(flatten(data.children), clickedData.id);

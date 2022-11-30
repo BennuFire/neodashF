@@ -5,6 +5,7 @@ import { runCypherQuery } from '../report/ReportQueryRunner';
 import { setParametersToLoadAfterConnecting, setWelcomeScreenOpen } from '../application/ApplicationActions';
 import { updateGlobalParametersThunk } from '../settings/SettingsThunks';
 
+// TODO move this to a generic utils file
 export function createUUID() {
   let dt = new Date().getTime();
   let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -67,7 +68,7 @@ export const loadDashboardThunk = (text) => (dispatch: any, getState: any) => {
     // If we load a debug report, take out the 'dashboard' value and set it to safe values.
     if (dashboard._persist && dashboard.application && dashboard.dashboard) {
       dispatch(
-        createNotificationThunk('Loaded a Debug Report', "Recovery-mode active. All report types were set to 'table'."),
+        createNotificationThunk('Loaded a Debug Report', "Recovery-mode active. All report types were set to 'table'.")
       );
       dashboard.dashboard.pages.map((p) => {
         p.reports.map((r) => {
@@ -85,8 +86,8 @@ export const loadDashboardThunk = (text) => (dispatch: any, getState: any) => {
       dispatch(
         createNotificationThunk(
           'Successfully upgraded dashboard',
-          'Your old dashboard was migrated to version 2.0. You might need to refresh this page.',
-        ),
+          'Your old dashboard was migrated to version 2.0. You might need to refresh this page.'
+        )
       );
       return;
     }
@@ -97,8 +98,8 @@ export const loadDashboardThunk = (text) => (dispatch: any, getState: any) => {
       dispatch(
         createNotificationThunk(
           'Successfully upgraded dashboard',
-          'Your old dashboard was migrated to version 2.1. You might need to refresh this page.',
-        ),
+          'Your old dashboard was migrated to version 2.1. You might need to refresh this page.'
+        )
       );
       return;
     }
@@ -109,8 +110,8 @@ export const loadDashboardThunk = (text) => (dispatch: any, getState: any) => {
       dispatch(
         createNotificationThunk(
           'Successfully upgraded dashboard',
-          'Your old dashboard was migrated to version 2.2. You might need to refresh this page.',
-        ),
+          'Your old dashboard was migrated to version 2.2. You might need to refresh this page.'
+        )
       );
       return;
     }
@@ -143,8 +144,7 @@ export const saveDashboardToNeo4jThunk =
   (dispatch: any) => {
     try {
       const uuid = createUUID();
-      const { title } = dashboard;
-      const { version } = dashboard;
+      const { title, version } = dashboard;
 
       // Generate a cypher query to save the dashboard.
       const query = overwrite
@@ -173,11 +173,11 @@ export const saveDashboardToNeo4jThunk =
             dispatch(
               createNotificationThunk(
                 'Unable to save dashboard',
-                `Do you have write access to the '${database}' database?`,
-              ),
+                `Do you have write access to the '${database}' database?`
+              )
             );
           }
-        },
+        }
       );
     } catch (e) {
       dispatch(createNotificationThunk('Unable to save dashboard to Neo4j', e));
@@ -199,12 +199,12 @@ export const loadDashboardFromNeo4jByUUIDThunk = (driver, database, uuid, callba
           dispatch(
             createNotificationThunk(
               `Unable to load dashboard from database '${database}'.`,
-              `A dashboard with UUID '${uuid}' could not be found.`,
-            ),
+              `A dashboard with UUID '${uuid}' could not be found.`
+            )
           );
         }
         callback(records[0]._fields[0]);
-      },
+      }
     );
   } catch (e) {
     dispatch(createNotificationThunk('Unable to load dashboard to Neo4j', e));
@@ -227,12 +227,12 @@ export const loadDashboardFromNeo4jByNameThunk = (driver, database, name, callba
           dispatch(
             createNotificationThunk(
               'Unable to load dashboard.',
-              'A dashboard with the provided name could not be found.',
-            ),
+              'A dashboard with the provided name could not be found.'
+            )
           );
         }
         callback(records[0]._fields[0]);
-      },
+      }
     );
   } catch (e) {
     dispatch(createNotificationThunk('Unable to load dashboard from Neo4j', e));
@@ -263,7 +263,7 @@ export const loadDashboardListFromNeo4jThunk = (driver, database, callback) => (
           };
         });
         callback(result);
-      },
+      }
     );
   } catch (e) {
     dispatch(createNotificationThunk('Unable to load dashboard list from Neo4j', e));
@@ -284,7 +284,7 @@ export const loadDatabaseListFromNeo4jThunk = (driver, callback) => (dispatch: a
           return r._fields && r._fields[0];
         });
         callback(result);
-      },
+      }
     );
   } catch (e) {
     dispatch(createNotificationThunk('Unable to list databases from Neo4j', e));

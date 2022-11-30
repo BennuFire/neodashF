@@ -116,6 +116,7 @@ const NeoGraphChart = (props: ChartProps) => {
 
   const [data, setData] = useState({ nodes: [], links: [] });
 
+  // TODO we are modifying state directly instead of with an action, not good
   // Create the dictionary used for storing the memory of dragged node positions.
   if (props.settings.nodePositions == undefined) {
     props.settings.nodePositions = {};
@@ -124,7 +125,7 @@ const NeoGraphChart = (props: ChartProps) => {
 
   // 'frozen' indicates that the graph visualization engine is paused, node positions and stored and only dragging is possible.
   const [frozen, setFrozen] = useState(
-    props.settings && props.settings.frozen !== undefined ? props.settings.frozen : false,
+    props.settings && props.settings.frozen !== undefined ? props.settings.frozen : false
   );
 
   // Currently unused, but dynamic graph exploration could be done with these records.
@@ -243,7 +244,7 @@ const NeoGraphChart = (props: ChartProps) => {
             (link.source > link.target ? 1 : -1) *
             getCurvature(
               link.source > link.target ? i : i + mirroredNodePair.length,
-              nodePair.length + mirroredNodePair.length,
+              nodePair.length + mirroredNodePair.length
             ),
         });
       });
@@ -294,13 +295,13 @@ const NeoGraphChart = (props: ChartProps) => {
           </i>
         ) : (
           <TableContainer>
-            <Table size="small">
+            <Table size='small'>
               <TableBody>
                 {Object.keys(value.properties)
                   .sort()
                   .map((key) => (
                     <TableRow key={key}>
-                      <TableCell component="th" scope="row" style={{ padding: '3px', paddingLeft: '8px' }}>
+                      <TableCell component='th' scope='row' style={{ padding: '3px', paddingLeft: '8px' }}>
                         {key}
                       </TableCell>
                       <TableCell align={'left'} style={{ padding: '3px', paddingLeft: '8px' }}>
@@ -348,13 +349,6 @@ const NeoGraphChart = (props: ChartProps) => {
     }
   }, []);
 
-  const showPopup2 = useCallback((item) => {
-    if (showPropertiesOnClick) {
-      setInspectItem(item);
-      handleOpen();
-    }
-  }, []);
-
   // If the set of extra records gets updated (e.g. on relationship expand), rebuild the graph.
   useEffect(() => {
     buildVisualizationDictionaryFromRecords(props.records.concat(extraRecords));
@@ -368,19 +362,19 @@ const NeoGraphChart = (props: ChartProps) => {
         ref={observe}
         style={{ paddingLeft: '10px', position: 'relative', overflow: 'hidden', width: '100%', height: '100%' }}
       >
-        <Tooltip title="Fit graph to view." aria-label="">
+        <Tooltip title='Fit graph to view.' aria-label=''>
           <SettingsOverscanIcon
             onClick={() => {
               fgRef.current.zoomToFit(400);
             }}
             style={{ fontSize: '1.3rem', opacity: 0.6, bottom: 11, right: 34, position: 'absolute', zIndex: 5 }}
-            color="disabled"
-            fontSize="small"
+            color='disabled'
+            fontSize='small'
           ></SettingsOverscanIcon>
         </Tooltip>
         {lockable ? (
           frozen ? (
-            <Tooltip title="Toggle dynamic graph layout." aria-label="">
+            <Tooltip title='Toggle dynamic graph layout.' aria-label=''>
               <LockIcon
                 onClick={() => {
                   setFrozen(false);
@@ -389,12 +383,12 @@ const NeoGraphChart = (props: ChartProps) => {
                   }
                 }}
                 style={{ fontSize: '1.3rem', opacity: 0.6, bottom: 12, right: 12, position: 'absolute', zIndex: 5 }}
-                color="disabled"
-                fontSize="small"
+                color='disabled'
+                fontSize='small'
               ></LockIcon>
             </Tooltip>
           ) : (
-            <Tooltip title="Toggle fixed graph layout." aria-label="">
+            <Tooltip title='Toggle fixed graph layout.' aria-label=''>
               <LockOpenIcon
                 onClick={() => {
                   if (nodePositions == undefined) {
@@ -406,8 +400,8 @@ const NeoGraphChart = (props: ChartProps) => {
                   }
                 }}
                 style={{ fontSize: '1.3rem', opacity: 0.6, bottom: 12, right: 12, position: 'absolute', zIndex: 5 }}
-                color="disabled"
-                fontSize="small"
+                color='disabled'
+                fontSize='small'
               ></LockOpenIcon>
             </Tooltip>
           )
@@ -415,14 +409,14 @@ const NeoGraphChart = (props: ChartProps) => {
           <></>
         )}
         {drilldownLink !== '' ? (
-          <a href={replaceDashboardParameters(drilldownLink)} target="_blank">
+          <a href={replaceDashboardParameters(drilldownLink)} target='_blank'>
             <Fab
               style={{ position: 'absolute', backgroundColor: 'steelblue', right: '15px', zIndex: 50, top: '5px' }}
-              color="primary"
-              size="small"
-              aria-label="search"
+              color='primary'
+              size='small'
+              aria-label='search'
             >
-              <Tooltip title="Investigate" aria-label="">
+              <Tooltip title='Investigate' aria-label=''>
                 <SearchIcon />
               </Tooltip>
             </Fab>
@@ -435,7 +429,7 @@ const NeoGraphChart = (props: ChartProps) => {
           ref={fgRef}
           width={width ? width - 10 : 0}
           height={height ? height - 10 : 0}
-          linkCurvature="curvature"
+          linkCurvature='curvature'
           backgroundColor={backgroundColor}
           linkDirectionalArrowLength={3}
           linkDirectionalArrowRelPos={1}

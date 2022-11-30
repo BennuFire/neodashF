@@ -86,6 +86,10 @@ const NeoCardView = ({
   };
 
   const getLocalParameters = (): any => {
+    if (!globalParameters) {
+      return {};
+    }
+
     let re = /(?:^|\W)\$(\w+)(?!\w)/g;
     let match;
     let localQueryVariables: string[] = [];
@@ -93,11 +97,8 @@ const NeoCardView = ({
       localQueryVariables.push(match[1]);
     }
 
-    if (!globalParameters) {
-      return {};
-    }
     return Object.fromEntries(
-      Object.entries(globalParameters).filter(([local]) => localQueryVariables.includes(local)),
+      Object.entries(globalParameters).filter(([local]) => localQueryVariables.includes(local))
     );
   };
 
@@ -146,7 +147,7 @@ const NeoCardView = ({
         <>
           <IconButton
             style={{ float: 'right', padding: '4px', marginRight: '12px' }}
-            aria-label="run"
+            aria-label='run'
             onClick={() => {
               setActive(true);
             }}

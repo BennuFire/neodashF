@@ -19,8 +19,6 @@ const NeoCardSettingsFooter = ({
   reportSettingsOpen,
   extensions,
   onToggleReportSettings,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onCreateNotification,
   onReportSettingUpdate,
 }) => {
   const [reportSettingsText, setReportSettingsText] = React.useState(reportSettings);
@@ -128,19 +126,19 @@ const NeoCardSettingsFooter = ({
               <FormGroup>
                 <FormControlLabel
                   style={{ marginLeft: '5px', marginBottom: '10px' }}
-                  control={<Switch checked={reportSettingsOpen} onChange={onToggleReportSettings} color="default" />}
-                  labelPlacement="end"
+                  control={<Switch checked={reportSettingsOpen} onChange={onToggleReportSettings} color='default' />}
+                  labelPlacement='end'
                   label={<div style={{ fontSize: '12px', color: 'grey' }}>Advanced settings</div>}
                 />
               </FormGroup>
             </td>
             {RULE_BASED_REPORT_CUSTOMIZATIONS[type] && extensions.styling ? (
               <td>
-                <Tooltip title="Set rule-based styling" aria-label="">
+                <Tooltip title='Set rule-based styling' aria-label=''>
                   <IconButton
-                    size="small"
+                    size='small'
                     style={{ float: 'right', marginRight: '10px' }}
-                    aria-label="custom styling"
+                    aria-label='custom styling'
                     onClick={() => {
                       setCustomReportStyleModalOpen(true); // Open the modal.
                     }}

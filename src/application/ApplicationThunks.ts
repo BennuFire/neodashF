@@ -9,7 +9,7 @@ import {
   upgradeDashboardVersion,
 } from '../dashboard/DashboardThunks';
 import { createNotificationThunk } from '../page/PageThunks';
-import { QueryStatus, runCypherQuery } from '../report/ReportQueryRunner';
+import { runCypherQuery } from '../report/ReportQueryRunner';
 import {
   setPageNumberThunk,
   updateGlobalParametersThunk,
@@ -94,8 +94,8 @@ export const createConnectionThunk =
                   driver,
                   application.standaloneDashboardDatabase,
                   application.dashboardToLoadAfterConnecting.substring(5),
-                  setDashboardAfterLoadingFromDatabase,
-                ),
+                  setDashboardAfterLoadingFromDatabase
+                )
               );
             } else {
               dispatch(
@@ -103,8 +103,8 @@ export const createConnectionThunk =
                   driver,
                   application.standaloneDashboardDatabase,
                   application.dashboardToLoadAfterConnecting,
-                  setDashboardAfterLoadingFromDatabase,
-                ),
+                  setDashboardAfterLoadingFromDatabase
+                )
               );
             }
             dispatch(setDashboardToLoadAfterConnecting(null));
@@ -122,7 +122,7 @@ export const createConnectionThunk =
         parameters,
         1,
         () => {},
-        (records) => validateConnection(records),
+        (records) => validateConnection(records)
       );
     } catch (e) {
       dispatch(createNotificationThunk('Unable to establish connection', e));
@@ -135,12 +135,7 @@ export const createConnectionThunk =
 export const createConnectionFromDesktopIntegrationThunk = () => (dispatch: any, getState: any) => {
   try {
     const desktopConnectionDetails = getState().application.desktopConnection;
-    const { protocol } = desktopConnectionDetails;
-    const { url } = desktopConnectionDetails;
-    const { port } = desktopConnectionDetails;
-    const { database } = desktopConnectionDetails;
-    const { username } = desktopConnectionDetails;
-    const { password } = desktopConnectionDetails;
+    const { protocol, url, port, database, username, password } = desktopConnectionDetails;
     dispatch(createConnectionThunk(protocol, url, port, database, username, password));
   } catch (e) {
     dispatch(createNotificationThunk('Unable to establish connection to Neo4j Desktop', e));
@@ -179,8 +174,8 @@ export const setDatabaseFromNeo4jDesktopIntegrationThunk = () => (dispatch: any)
             neo4j.connection.configuration.protocols.bolt.port,
             undefined,
             neo4j.connection.configuration.protocols.bolt.username,
-            neo4j.connection.configuration.protocols.bolt.password,
-          ),
+            neo4j.connection.configuration.protocols.bolt.password
+          )
         );
       }
     });
@@ -246,8 +241,8 @@ export const handleSharedDashboardsThunk = () => (dispatch: any) => {
             database,
             username,
             password,
-            dashboardDatabase,
-          ),
+            dashboardDatabase
+          )
         );
         window.history.pushState({}, document.title, '/');
       } else {
@@ -263,8 +258,8 @@ export const handleSharedDashboardsThunk = () => (dispatch: any) => {
             undefined,
             undefined,
             undefined,
-            undefined,
-          ),
+            undefined
+          )
         );
         window.history.pushState({}, document.title, '/');
       }
@@ -275,8 +270,8 @@ export const handleSharedDashboardsThunk = () => (dispatch: any) => {
     dispatch(
       createNotificationThunk(
         'Unable to load shared dashboard',
-        'You have specified an invalid/incomplete share URL. Try regenerating the share URL from the sharing window.',
-      ),
+        'You have specified an invalid/incomplete share URL. Try regenerating the share URL from the sharing window.'
+      )
     );
   }
 };
@@ -303,8 +298,8 @@ export const onConfirmLoadSharedDashboardThunk = () => (dispatch: any, getState:
           shareDetails.port,
           shareDetails.database,
           shareDetails.username,
-          shareDetails.password,
-        ),
+          shareDetails.password
+        )
       );
     } else {
       dispatch(setConnectionModalOpen(true));
@@ -317,8 +312,8 @@ export const onConfirmLoadSharedDashboardThunk = () => (dispatch: any, getState:
     dispatch(
       createNotificationThunk(
         'Unable to load shared dashboard',
-        'The provided connection or dashboard identifiers are invalid. Try regenerating the share URL from the sharing window.',
-      ),
+        'The provided connection or dashboard identifiers are invalid. Try regenerating the share URL from the sharing window.'
+      )
     );
   }
 };
@@ -383,8 +378,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         config.standaloneDashboardDatabase,
         config.standaloneDashboardURL,
         config.standaloneUsername,
-        config.standalonePassword,
-      ),
+        config.standalonePassword
+      )
     );
     dispatch(setConnectionModalOpen(false));
 
@@ -396,8 +391,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         dispatch(
           createNotificationThunk(
             'Successfully upgraded dashboard',
-            'Your old dashboard was migrated to version 2.1. You might need to refresh this page.',
-          ),
+            'Your old dashboard was migrated to version 2.1. You might need to refresh this page.'
+          )
         );
       }
       if (state.dashboard.version == '2.1') {
@@ -406,8 +401,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         dispatch(
           createNotificationThunk(
             'Successfully upgraded dashboard',
-            'Your old dashboard was migrated to version 2.2. You might need to refresh this page.',
-          ),
+            'Your old dashboard was migrated to version 2.2. You might need to refresh this page.'
+          )
         );
       }
     }
@@ -427,8 +422,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
               config.standalonePort,
               config.standaloneDatabase,
               credentials.username,
-              credentials.password,
-            ),
+              credentials.password
+            )
           );
           dispatch(
             createConnectionThunk(
@@ -437,8 +432,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
               config.standalonePort,
               config.standaloneDatabase,
               credentials.username,
-              credentials.password,
-            ),
+              credentials.password
+            )
           );
           if (config.standaloneDashboardURL !== undefined && config.standaloneDashboardURL.length > 0) {
             dispatch(setDashboardToLoadAfterConnecting(config.standaloneDashboardURL));
@@ -454,8 +449,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
         dispatch(
           createNotificationThunk(
             'Unable to connect using SSO',
-            'Something went wrong. Most likely your credentials are incorrect...',
-          ),
+            'Something went wrong. Most likely your credentials are incorrect...'
+          )
         );
       } else {
         return;
@@ -472,8 +467,8 @@ export const loadApplicationConfigThunk = () => async (dispatch: any, getState: 
     dispatch(
       createNotificationThunk(
         'Unable to load application configuration',
-        'Do you have a valid config.json deployed with your application?',
-      ),
+        'Do you have a valid config.json deployed with your application?'
+      )
     );
   }
 };
@@ -488,6 +483,7 @@ export const initializeApplicationAsEditorThunk = (_, paramsToSetAfterConnecting
   dispatch(setConnected(false));
   dispatch(setDashboardToLoadAfterConnecting(null));
   dispatch(updateGlobalParametersThunk(paramsToSetAfterConnecting));
+  // TODO: this logic around loading/saving/upgrading/migrating dashboards needs a cleanup
   if (Object.keys(paramsToSetAfterConnecting).length > 0) {
     dispatch(setParametersToLoadAfterConnecting(null));
   }
@@ -516,8 +512,8 @@ export const initializeApplicationAsStandaloneThunk =
         config.standalonePort,
         config.standaloneDatabase,
         config.standaloneUsername ? config.standaloneUsername : state.application.connection.username,
-        config.standalonePassword ? config.standalonePassword : state.application.connection.password,
-      ),
+        config.standalonePassword ? config.standalonePassword : state.application.connection.password
+      )
     );
 
     dispatch(setAboutModalOpen(false));
@@ -544,8 +540,8 @@ export const initializeApplicationAsStandaloneThunk =
           config.standalonePort,
           config.standaloneDatabase,
           config.standaloneUsername,
-          config.standalonePassword,
-        ),
+          config.standalonePassword
+        )
       );
     } else {
       dispatch(setConnectionModalOpen(true));

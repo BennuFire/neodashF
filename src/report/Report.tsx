@@ -45,7 +45,7 @@ export const NeoReport = ({
   const { driver } = useContext<Neo4jContextState>(Neo4jContext);
   if (!driver) {
     throw new Error(
-      '`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?',
+      '`driver` not defined. Have you added it into your app as <Neo4jContext.Provider value={{driver}}> ?'
     );
   }
 
@@ -70,7 +70,7 @@ export const NeoReport = ({
         ? Object.keys(reportTypes[type].selection).filter(
             (field) =>
               reportTypes[type].selection[field].type == SELECTION_TYPES.NUMBER &&
-              !reportTypes[type].selection[field].multiple,
+              !reportTypes[type].selection[field].multiple
           )
         : [];
 
@@ -101,7 +101,7 @@ export const NeoReport = ({
         useNodePropsAsFields,
         useReturnValuesAsFields,
         HARD_ROW_LIMITING,
-        queryTimeLimit,
+        queryTimeLimit
       );
     } else {
       runCypherQuery(
@@ -117,7 +117,7 @@ export const NeoReport = ({
         useNodePropsAsFields,
         useReturnValuesAsFields,
         HARD_ROW_LIMITING,
-        queryTimeLimit,
+        queryTimeLimit
       );
     }
   };
@@ -139,7 +139,7 @@ export const NeoReport = ({
         setTimer(
           setInterval(() => {
             populateReport(false);
-          }, Math.min(refreshRate, 86400) * 1000.0),
+          }, Math.min(refreshRate, 86400) * 1000.0)
         );
       }
     }
@@ -162,7 +162,7 @@ export const NeoReport = ({
       false,
       false,
       HARD_ROW_LIMITING,
-      queryTimeLimit,
+      queryTimeLimit
     );
   }, []);
 
@@ -174,16 +174,16 @@ export const NeoReport = ({
   } else if (status == QueryStatus.NO_QUERY) {
     return (
       <div style={{ padding: 15 }}>
-        No query specified. <br /> Use the{' '}
-        <Chip style={{ backgroundColor: '#efefef' }} size="small" icon={<MoreVert />} label="Report Settings" /> button
-        to get started.{' '}
+        No query specified. <br /> Use the
+        <Chip style={{ backgroundColor: '#efefef' }} size='small' icon={<MoreVert />} label='Report Settings' /> button
+        to get started.
       </div>
     );
   } else if (status == QueryStatus.RUNNING) {
     return (
       <Typography
-        variant="h2"
-        color="textSecondary"
+        variant='h2'
+        color='textSecondary'
         style={{
           position: 'absolute',
           left: '50%',
@@ -192,7 +192,7 @@ export const NeoReport = ({
           textAlign: 'center',
         }}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Typography>
     );
   } else if (status == QueryStatus.NO_DATA) {
@@ -229,8 +229,8 @@ export const NeoReport = ({
           <div style={{ display: 'flex' }}>
             <Tooltip
               title={`Over ${rowLimit} row(s) were returned, results have been truncated.`}
-              placement="left"
-              aria-label="host"
+              placement='left'
+              aria-label='host'
             >
               <WarningIcon
                 style={{ zIndex: 999, marginTop: '2px', marginRight: '20px', marginLeft: 'auto', color: 'orange' }}

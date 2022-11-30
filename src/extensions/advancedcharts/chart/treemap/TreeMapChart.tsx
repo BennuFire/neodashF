@@ -71,7 +71,7 @@ const NeoTreeMapChart = (props: ChartProps) => {
     <>
       <div style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100%' }}>
         {refreshable ? (
-          <Tooltip title="Reset" aria-label="reset">
+          <Tooltip title='Reset' aria-label='reset'>
             <RefreshIcon
               onClick={() => {
                 setData(commonProperties.data);
@@ -87,8 +87,8 @@ const NeoTreeMapChart = (props: ChartProps) => {
                 zIndex: 5,
                 background: '#eee',
               }}
-              color="disabled"
-              fontSize="small"
+              color='disabled'
+              fontSize='small'
             ></RefreshIcon>
           </Tooltip>
         ) : (
@@ -96,8 +96,8 @@ const NeoTreeMapChart = (props: ChartProps) => {
         )}
         <ResponsiveTreeMap
           {...commonProperties}
-          identity="name"
-          value="loc"
+          identity='name'
+          value='loc'
           data={data}
           onClick={(clickedData) => {
             const foundObject = findObject(flatten(data.children), clickedData.id);

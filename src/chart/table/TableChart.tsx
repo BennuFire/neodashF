@@ -53,11 +53,14 @@ const NeoTableChart = (props: ChartProps) => {
 
   const { records } = props;
 
+  // It's 'safe' because a space gets added at the end.
+  // This avoids creating columns with reserved names (like id for example).
   const generateSafeColumnKey = (key) => {
     return key != 'id' ? key : `${key} `;
   };
+  // TODO refactor to make it more understandable
   const columns = transposed
-    ? ['Field'].concat(records.map((r, j) => `Value${j == 0 ? '' : ` ${(j + 1).toString()}`}`)).map((key, i) => {
+    ? ['Field'].concat(records.map((_, j) => `Value${j == 0 ? '' : ` ${(j + 1).toString()}`}`)).map((key, i) => {
         const value = key;
         return ApplyColumnType(
           {
@@ -68,7 +71,7 @@ const NeoTableChart = (props: ChartProps) => {
             flex: columnWidths && i < columnWidths.length ? columnWidths[i] : 1,
             disableClickEventBubbling: true,
           },
-          value,
+          value
         );
       })
     : records[0].keys.map((key, i) => {
@@ -82,7 +85,7 @@ const NeoTableChart = (props: ChartProps) => {
             flex: columnWidths && i < columnWidths.length ? columnWidths[i] : 1,
             disableClickEventBubbling: true,
           },
-          value,
+          value
         );
       });
 
@@ -92,13 +95,13 @@ const NeoTableChart = (props: ChartProps) => {
           { id: i, Field: key },
           ...records.map((r, j) => ({
             [`Value${j == 0 ? '' : ` ${(j + 1).toString()}`}`]: RenderSubValue(r._fields[i]),
-          })),
+          }))
         );
       })
     : records.map((record, rownumber) => {
         return Object.assign(
           { id: rownumber },
-          ...record._fields.map((field, i) => ({ [generateSafeColumnKey(record.keys[i])]: field })),
+          ...record._fields.map((field, i) => ({ [generateSafeColumnKey(record.keys[i])]: field }))
         );
       });
 
@@ -112,26 +115,26 @@ const NeoTableChart = (props: ChartProps) => {
         open={notificationOpen}
         autoHideDuration={2000}
         onClose={() => setNotificationOpen(false)}
-        message="Value copied to clipboard."
+        message='Value copied to clipboard.'
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={() => setNotificationOpen(false)}>
-              <CloseIcon fontSize="small" />
+            <IconButton size='small' aria-label='close' color='inherit' onClick={() => setNotificationOpen(false)}>
+              <CloseIcon fontSize='small' />
             </IconButton>
           </React.Fragment>
         }
       />
 
       {allowDownload && rows && rows.length > 0 ? (
-        <Tooltip title="Download CSV" aria-label="">
+        <Tooltip title='Download CSV' aria-label=''>
           <IconButton
             onClick={() => {
               downloadCSV(rows);
             }}
-            aria-label="download csv"
+            aria-label='download csv'
             style={{ bottom: '9px', left: '3px', position: 'absolute' }}
           >
-            <SaveAltIcon style={{ fontSize: '1.3rem', zIndex: 5 }} fontSize="small"></SaveAltIcon>
+            <SaveAltIcon style={{ fontSize: '1.3rem', zIndex: 5 }} fontSize='small'></SaveAltIcon>
           </IconButton>
         </Tooltip>
       ) : (

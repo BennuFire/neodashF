@@ -75,16 +75,16 @@ const NeoChoroplethMapChart = (props: ChartProps) => {
           domain={[0, m]}
           margin={{ top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft }}
           colors={colorScheme}
-          unknownColor="#666666"
+          unknownColor='#666666'
           label={labelProperty}
-          valueFormat=".2s"
+          valueFormat='.2s'
           projectionScale={projectionScale}
           projectionTranslation={[projectionTranslationX, projectionTranslationY]}
           projectionRotation={[0, 0, 0]}
           enableGraticule={true}
-          graticuleLineColor="#dddddd"
+          graticuleLineColor='#dddddd'
           borderWidth={borderWidth}
-          borderColor="#152538"
+          borderColor='#152538'
           legends={
             legend
               ? [

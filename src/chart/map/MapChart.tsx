@@ -67,6 +67,7 @@ const NeoMapChart = (props: ChartProps) => {
   let linkTypes = {};
 
   // Gets all graphy objects (nodes/relationships) from the complete set of return values.
+  // TODO this should be in Utils.ts
   function extractGraphEntitiesFromField(value) {
     if (value == undefined) {
       return;
@@ -132,6 +133,7 @@ const NeoMapChart = (props: ChartProps) => {
     }
   }
 
+  // TODO this should be in Utils.ts
   function buildVisualizationDictionaryFromRecords(records) {
     // Extract graph objects from result set.
     records.forEach((record) => {
@@ -274,9 +276,8 @@ const NeoMapChart = (props: ChartProps) => {
           }
         >
           {props.selection && props.selection[node.firstLabel] && props.selection[node.firstLabel] != '(no label)' ? (
-            <Tooltip direction="bottom" permanent className={'leaflet-custom-tooltip'}>
-              {' '}
-              {renderNodeLabel(node)}{' '}
+            <Tooltip direction='bottom' permanent className={'leaflet-custom-tooltip'}>
+              {renderNodeLabel(node)}
             </Tooltip>
           ) : (
             <></>
@@ -396,10 +397,10 @@ const NeoMapChart = (props: ChartProps) => {
     );
   }
 
+  // TODO this should definitely be refactored as an if/case statement.
   const markers = layerType == 'markers' ? createMarkers() : '';
   const lines = layerType == 'markers' ? createLines() : '';
   const heatmap = layerType == 'heatmap' ? createHeatmap() : '';
-  const fullscreen = props.fullscreen ? props.fullscreen : true;
 
   // Draw the component.
   return (

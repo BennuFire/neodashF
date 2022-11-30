@@ -33,6 +33,7 @@ const NeoSankeyChart = (props: ChartProps) => {
 
   const styleRules = settings && settings.styleRules ? settings.styleRules : [];
 
+  // TODO this line is duplicated in a lot of places, should be in an utils file
   const update = (state, mutations) => Object.assign({}, state, mutations);
 
   const [data, setData] = useState({ nodes: [], links: [] });
@@ -184,7 +185,7 @@ const NeoSankeyChart = (props: ChartProps) => {
       layout={layout}
       label={getArcLabel}
       nodeBorderWidth={nodeBorderWidth}
-      align="justify"
+      align='justify'
       nodeOpacity={1}
       nodeHoverOthersOpacity={0.35}
       nodeThickness={nodeThickness}
