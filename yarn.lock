@@ -2007,7 +2007,7 @@
   integrity sha512-n34LWYtE2hbd1fdCDP7TCHNZdbiO1PwcvXLo0VsKK5lNPY/FA5SXA7Z9Ubl/ChSwBwbzAsaAhjTy8KzKzSjDcA==
   dependencies:
     "@nivo/core" "0.83.0"
-    "@types/d3-color" "^2.0.0"
+    "@types/d3-color" "^3.1.0"
     "@types/d3-scale" "^3.2.3"
     "@types/d3-scale-chromatic" "^2.0.0"
     "@types/prop-types" "^15.7.2"
