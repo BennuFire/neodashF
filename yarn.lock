@@ -2013,7 +2013,7 @@
     "@types/prop-types" "^15.7.2"
     d3-color "^3.1.0"
     d3-scale "^3.2.3"
-    d3-scale-chromatic "^2.0.0"
+    d3-scale-chromatic "^3.0.1"
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
