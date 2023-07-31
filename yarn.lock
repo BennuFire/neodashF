@@ -12186,10 +12186,10 @@ serve-static@1.15.0:
     parseurl "~1.3.3"
     send "0.18.0"
 
-serverless-finch@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/serverless-finch/-/serverless-finch-4.0.0.tgz#f5f3be76e819ebb8dc6e3ddbef31ef85205f1467"
-  integrity sha512-/1w8uwX0693XFie1d7shoIlPI5eupH3W12OxFqT4Mf221561q0qvTdkGO201IqOQeEcbOi6bq237jwMFa+rYTA==
+serverless-finch@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/serverless-finch/-/serverless-finch-4.0.3.tgz#c0a8f513c3fe0af4f8e80b74ba8e7a83683add7c"
+  integrity sha512-w27qMmF+jeCthrmzMIeb1ffg6czJVIBVY+5FtKfG0c15dBVDSMnNPJbhdjKTT6q27VwfyjJ92rNuT4JG9BKQUg==
   dependencies:
     "@serverless/utils" "^6.0.2"
     is_js "^0.9.0"
